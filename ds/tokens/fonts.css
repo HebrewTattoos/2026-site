@@ -1,0 +1,15 @@
+/* ============================================================
+   FONTS — Hebrew Tattoos
+   ------------------------------------------------------------
+   SUBSTITUTION FLAG: These are Google Fonts stand-ins chosen to
+   match the brand's literary, old-style character. If the brand
+   has licensed display/body faces, replace these @imports with
+   self-hosted @font-face rules and update tokens/typography.css.
+
+   - Cormorant Garamond  -> luxury display headlines
+   - EB Garamond         -> running body serif
+   - Hanken Grotesk      -> micro UI labels / tracked eyebrows
+   - Frank Ruhl Libre    -> any real Hebrew text (literary Hebrew serif)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Hanken+Grotesk:wght@400;500;600&family=Frank+Ruhl+Libre:wght@300;400;500;700&display=swap');

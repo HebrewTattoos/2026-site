@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Upload your reference photos — Hebrew Tattoos</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<link rel="stylesheet" href="/ds/styles.css">
+<style>
+  html, body { margin: 0; background: var(--color-bg, #fff); }
+  .cu-header {
+    display: flex; align-items: center; padding: 20px clamp(1.2rem, 5vw, 2rem);
+    border-bottom: 1px solid var(--line, #cbd1e0);
+  }
+  .cu-header a { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .cu-header img { height: 32px; width: auto; display: block; }
+  .cu-header span {
+    font-family: var(--font-sans, sans-serif); font-size: 12px; font-weight: 500;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--accent, #2338c9);
+  }
+  .cu-main { padding: clamp(40px, 7vw, 72px) clamp(1.2rem, 5vw, 2rem) 96px; }
+</style>
+</head>
+<body>
+  <header class="cu-header">
+    <a href="/">
+      <img src="/assets/logo-2026.png" alt="Hebrew Tattoos">
+      <span>Hebrew Tattoos</span>
+    </a>
+  </header>
+  <main class="cu-main">
+<div id="cpu-root">
+  <style>
+    #cpu-root{font-family:"Helvetica Neue",-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:540px;margin:0 auto;color:#1b2333;-webkit-font-smoothing:antialiased}
+    #cpu-root *{box-sizing:border-box}
+    .cpu-card{border:1px solid #e7e6e1;border-radius:2px;padding:40px 36px}
+    .cpu-eyebrow{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#9aa0aa;margin:0 0 18px}
+    .cpu-h{font-family:"Didot","Bodoni MT","Hoefler Text",Garamond,"Times New Roman",serif;font-size:30px;font-weight:400;line-height:1.2;letter-spacing:.01em;margin:0 0 12px}
+    .cpu-sub{color:#6b7280;margin:0 0 26px;font-size:15px;line-height:1.65}
+    .cpu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 22px}
+    .cpu-thumb{position:relative;aspect-ratio:1;border-radius:2px;overflow:hidden;background:#f4f4f1}
+    .cpu-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .cpu-x{position:absolute;top:6px;right:6px;width:24px;height:24px;border:none;border-radius:50%;background:rgba(27,35,51,.62);color:#fff;font-size:15px;line-height:24px;cursor:pointer}
+    .cpu-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+    .cpu-btn{font-family:inherit;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;border-radius:2px;padding:15px 18px;cursor:pointer;width:100%;transition:opacity .15s,background .15s}
+    .cpu-btn.primary{background:#1b2333;color:#fff;border:1px solid #1b2333;margin-top:10px}
+    .cpu-btn.ghost{background:#fff;color:#1b2333;border:1px solid #d6d6cf}
+    .cpu-btn.ghost:hover{background:#faf9f6}
+    .cpu-btn[disabled]{opacity:.4;cursor:default}
+    .cpu-status{font-size:13px;letter-spacing:.04em;color:#9aa0aa;margin-top:16px;min-height:18px;text-align:center}
+    .cpu-err{border:1px solid #e6ddcf;background:#faf7f2;border-radius:2px;padding:16px 18px;color:#6b5b45;font-size:15px;line-height:1.6}
+    .cpu-ok{text-align:center;padding:14px 0 6px}
+    .cpu-check{margin:0 0 22px;line-height:0}
+    .cpu-bar{height:2px;background:#eeeeec;border-radius:2px;overflow:hidden;margin-top:18px;display:none}
+    .cpu-bar > div{height:100%;width:0;background:#5c7aa6;transition:width .25s}
+    .cpu-video-wrap{position:relative;border-radius:2px;overflow:hidden;background:#0d1118;aspect-ratio:3/4;margin:0 0 18px}
+    .cpu-video-wrap video{width:100%;height:100%;object-fit:cover;display:block}
+    .cpu-count{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"Didot","Bodoni MT","Hoefler Text",Garamond,serif;font-size:90px;color:#fff;text-shadow:0 2px 22px rgba(0,0,0,.55);pointer-events:none}
+    .cpu-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;transition:opacity .35s}
+    .cpu-flash.on{opacity:.85;transition:none}
+    .cpu-model{margin:0 0 24px}
+    .cpu-model-frame{position:relative;aspect-ratio:4/3;border:1px solid #e7e6e1;border-radius:2px;overflow:hidden;background:#0d1118}
+    .cpu-model-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+    .cpu-model-cap{font-size:12px;letter-spacing:.06em;color:#9aa0aa;text-align:center;margin:10px 0 0}
+    input[type=file]{display:none}
+  </style>
+
+  <div class="cpu-card" id="cpu-panel"><p class="cpu-sub" style="margin:0">Loading…</p></div>
+
+  <script>
+  (function(){
+    // ---- CONFIG -----------------------------------------------------------
+    var WORKER_URL = "https://client-photo-upload.daniels-ab5.workers.dev";
+    var MAX_FILE_BYTES = 140 * 1024 * 1024; // Dropbox simple-upload ceiling (150MB)
+    var SHOTS = 8;             // timed-capture: number of photos
+    var SHOT_INTERVAL_SEC = 3; // timed-capture: seconds between photos
+    // -----------------------------------------------------------------------
+
+    var panel = document.getElementById("cpu-panel");
+    var token = (location.hash.match(/[#&]c=([^&]+)/) || [])[1] || "";
+    var session = null;     // {uploadToken, rootNamespaceId, uploadFolder, displayName}
+    var files = [];         // selected File objects
+
+    // Timed-capture state.
+    var stream = null, video = null, capTimer = null, pending = 0, facing = "user", audioCtx = null;
+
+    function el(html){ var d=document.createElement("div"); d.innerHTML=html.trim(); return d.firstChild; }
+    function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+    // Build a Sketchfab embed URL from any Sketchfab model link (extracts the 32-char id).
+    function sketchfabEmbed(u){
+      var m = String(u||"").match(/([0-9a-fA-F]{32})/);
+      return m ? "https://sketchfab.com/models/"+m[1]+"/embed?autostart=1&autospin=0.2&ui_infos=0&ui_controls=1&ui_stop=0&ui_hint=0&ui_theme=dark" : null;
+    }
+
+    // Reference 3D model block (only shown when the deal has a Sketchfab link).
+    function modelBlock(){
+      var src = sketchfabEmbed(session && session.sketchfabUrl);
+      if(!src) return "";
+      return '<div class="cpu-model">'+
+        '<p class="cpu-eyebrow" style="margin-bottom:10px">What we need</p>'+
+        '<div class="cpu-model-frame"><iframe src="'+src+'" title="Reference model" frameborder="0" allow="autoplay; fullscreen; xr-spatial-tracking; web-share" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe></div>'+
+        '<p class="cpu-model-cap">Drag to rotate — please photograph this area.</p>'+
+      '</div>';
+    }
+
+    function showError(msg){
+      panel.innerHTML = '<div class="cpu-err">'+esc(msg)+'</div>';
+    }
+
+    if(!token){
+      showError("This link is missing its code. Please use the personal link Daniel sent you, or ask him for a new one.");
+      return;
+    }
+
+    // 1) Ask the Worker what to do.
+    fetch(WORKER_URL + "/session?c=" + encodeURIComponent(token))
+      .then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
+      .then(function(res){
+        if(!res.ok){ throw new Error(res.j && res.j.reason === "expired"
+          ? "This link has expired. Please ask Daniel for a fresh one."
+          : "This link is invalid. Please ask Daniel for your personal link."); }
+        session = res.j;
+        renderPicker();
+      })
+      .catch(function(e){ showError(e.message || "Couldn't start. Please try again or contact Daniel."); });
+
+    // ---- Picker -----------------------------------------------------------
+    function renderPicker(){
+      panel.innerHTML = "";
+      panel.appendChild(el(
+        '<div>'+
+          '<p class="cpu-eyebrow">Hebrew Tattoos</p>'+
+          '<h1 class="cpu-h">Hi '+esc(session.displayName||"there")+',</h1>'+
+          '<p class="cpu-sub">Take a few reference photos for your piece, then send them to Daniel. '+
+          'Use <em>Take Photos</em> and your phone captures a short series hands-free so you can hold '+
+          'position — or pick shots you already have.</p>'+
+          modelBlock()+
+          '<div class="cpu-grid" id="cpu-grid"></div>'+
+          '<div class="cpu-actions">'+
+            '<button class="cpu-btn ghost" id="cpu-timed-btn">Take Photos</button>'+
+            '<button class="cpu-btn ghost" id="cpu-lib-btn">From Library</button>'+
+          '</div>'+
+          '<button class="cpu-btn primary" id="cpu-submit" disabled>Submit</button>'+
+          '<div class="cpu-bar" id="cpu-bar"><div></div></div>'+
+          '<div class="cpu-status" id="cpu-status"></div>'+
+          // Library picker. This is what the invite email promises; keep it.
+          '<input type="file" id="cpu-lib-input" accept="image/*" multiple>'+
+        '</div>'
+      ));
+      document.getElementById("cpu-timed-btn").onclick = openCamera;
+      document.getElementById("cpu-submit").onclick = submit;
+
+      var lib = document.getElementById("cpu-lib-input");
+      document.getElementById("cpu-lib-btn").onclick = function(){ lib.click(); };
+      lib.onchange = function(){ addFiles(lib.files); lib.value = ""; };
+
+      renderGrid();
+    }
+
+    function addFiles(list){
+      var skipped = 0;
+      for(var i=0;i<list.length;i++){
+        var f = list[i];
+        if(!f.type || f.type.indexOf("image/")!==0){ skipped++; continue; }
+        if(f.size > MAX_FILE_BYTES){ setStatus(f.name+" is too large to upload."); continue; }
+        files.push(f);
+      }
+      if(skipped) setStatus(skipped+" file"+(skipped>1?"s were":" was")+" skipped — photos only.");
+      renderGrid();
+    }
+
+    function renderGrid(){
+      var grid = document.getElementById("cpu-grid");
+      if(!grid) return;
+      grid.innerHTML = "";
+      files.forEach(function(f, idx){
+        var t = el('<div class="cpu-thumb"><button class="cpu-x" title="Remove">×</button></div>');
+        var img = document.createElement("img");
+        img.src = URL.createObjectURL(f);
+        img.onload = function(){ URL.revokeObjectURL(img.src); };
+        t.insertBefore(img, t.firstChild);
+        t.querySelector(".cpu-x").onclick = function(){ files.splice(idx,1); renderGrid(); };
+        grid.appendChild(t);
+      });
+      var submit = document.getElementById("cpu-submit");
+      if(submit){ submit.disabled = files.length===0; submit.textContent = files.length? ("Submit "+files.length+" photo"+(files.length>1?"s":"")) : "Submit"; }
+    }
+
+    function setStatus(s){ var n=document.getElementById("cpu-status"); if(n) n.textContent=s; }
+
+    // ---- Timed capture (in-page camera) -----------------------------------
+    function openCamera(){
+      panel.innerHTML = "";
+      panel.appendChild(el(
+        '<div>'+
+          '<p class="cpu-eyebrow">Hands-free capture</p>'+
+          '<div class="cpu-video-wrap">'+
+            '<video id="cpu-video" autoplay playsinline muted></video>'+
+            '<div class="cpu-flash" id="cpu-flash"></div>'+
+            '<div class="cpu-count" id="cpu-count"></div>'+
+          '</div>'+
+          '<p class="cpu-sub" id="cpu-cam-hint">Prop your phone so the area is in view, then tap Start. It takes '+SHOTS+' photos, one every '+SHOT_INTERVAL_SEC+' seconds, so you can hold still.</p>'+
+          '<div class="cpu-actions">'+
+            '<button class="cpu-btn ghost" id="cpu-flip">Flip Camera</button>'+
+            '<button class="cpu-btn ghost" id="cpu-cam-close">Cancel</button>'+
+          '</div>'+
+          '<button class="cpu-btn primary" id="cpu-start">Start</button>'+
+          '<input type="file" id="cpu-cam-fallback" accept="image/*" capture="environment">'+
+        '</div>'
+      ));
+      video = document.getElementById("cpu-video");
+      document.getElementById("cpu-flip").onclick = flipCamera;
+      document.getElementById("cpu-cam-close").onclick = closeCamera;
+      document.getElementById("cpu-start").onclick = beginCapture;
+      startStream();
+    }
+
+    function startStream(){
+      if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+        return camError('In-page camera isn’t supported here. Use “From Library” instead.');
+      }
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: facing, width: { ideal: 1920 }, height: { ideal: 1080 } }, audio: false })
+        .then(function(s){
+          stream = s;
+          if(video){ video.srcObject = s; video.style.transform = (facing==="user"?"scaleX(-1)":"none"); var p=video.play(); if(p&&p.catch) p.catch(function(){}); }
+        })
+        .catch(function(){ camError('Couldn’t open the camera. Please allow camera access, or use “From Library”.'); });
+    }
+
+    function camError(msg){
+      var hint = document.getElementById("cpu-cam-hint");
+      if(hint){ hint.textContent = msg; hint.style.color = "#6b5b45"; }
+      var flip = document.getElementById("cpu-flip"); if(flip) flip.disabled = true;
+      // Fall back to the phone's native camera so the client is never stuck.
+      var start = document.getElementById("cpu-start");
+      var fb = document.getElementById("cpu-cam-fallback");
+      if(start && fb){
+        start.textContent = "Use Phone Camera";
+        start.disabled = false;
+        start.onclick = function(){ fb.click(); };
+        fb.onchange = function(){ addFiles(fb.files); fb.value=""; stopStream(); renderPicker(); };
+      } else if(start){ start.disabled = true; }
+    }
+
+    function beginCapture(){
+      var start = document.getElementById("cpu-start"); if(start) start.disabled = true;
+      var flip = document.getElementById("cpu-flip"); if(flip) flip.disabled = true;
+      ensureAudio();
+      runShot(1);
+    }
+
+    function runShot(index){
+      if(index > SHOTS){ return finishCapture(); }
+      setHint("Photo "+index+" of "+SHOTS+" — hold position");
+      countdown(SHOT_INTERVAL_SEC, function(){
+        grabFrame(); flash(); ping();
+        runShot(index+1);
+      });
+    }
+
+    function countdown(sec, done){
+      setCount(sec>0 ? String(sec) : "");
+      if(sec<=0){ return done(); }
+      capTimer = setTimeout(function(){ countdown(sec-1, done); }, 1000);
+    }
+
+    function grabFrame(){
+      if(!video || !video.videoWidth) return;
+      var c = document.createElement("canvas");
+      c.width = video.videoWidth; c.height = video.videoHeight;
+      c.getContext("2d").drawImage(video, 0, 0, c.width, c.height);
+      pending++;
+      c.toBlob(function(b){
+        if(b) files.push(new File([b], "capture-"+(files.length+1)+".jpg", { type:"image/jpeg" }));
+        pending--;
+      }, "image/jpeg", 0.92);
+    }
+
+    function flash(){ var f=document.getElementById("cpu-flash"); if(!f) return; f.className="cpu-flash on"; setTimeout(function(){ f.className="cpu-flash"; }, 60); }
+
+    // A short, soft shutter ping synthesized in-browser (no audio file needed).
+    function ensureAudio(){
+      try{
+        if(!audioCtx){ var AC = window.AudioContext || window.webkitAudioContext; if(AC) audioCtx = new AC(); }
+        if(audioCtx && audioCtx.state === "suspended") audioCtx.resume();
+      }catch(e){}
+    }
+    function ping(){
+      if(!audioCtx) return;
+      try{
+        var t = audioCtx.currentTime, o = audioCtx.createOscillator(), g = audioCtx.createGain();
+        o.type = "sine"; o.frequency.setValueAtTime(1175, t);
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.22, t+0.012);
+        g.gain.exponentialRampToValueAtTime(0.0001, t+0.2);
+        o.connect(g); g.connect(audioCtx.destination);
+        o.start(t); o.stop(t+0.22);
+      }catch(e){}
+    }
+    function setCount(s){ var n=document.getElementById("cpu-count"); if(n) n.textContent=s; }
+    function setHint(s){ var n=document.getElementById("cpu-cam-hint"); if(n){ n.textContent=s; n.style.color=""; } }
+
+    function finishCapture(){
+      setCount(""); setHint("Finishing…");
+      (function wait(){ if(pending>0){ setTimeout(wait, 100); return; } stopStream(); renderPicker(); })();
+    }
+    function closeCamera(){ stopStream(); renderPicker(); }
+    function flipCamera(){ facing = (facing==="user" ? "environment" : "user"); stopStream(); startStream(); }
+    function stopStream(){
+      if(capTimer){ clearTimeout(capTimer); capTimer=null; }
+      if(stream){ stream.getTracks().forEach(function(t){ t.stop(); }); stream=null; }
+    }
+
+    // ---- Direct-to-Dropbox upload -----------------------------------------
+    // Dropbox-API-Arg must be ASCII; escape any non-ASCII in the path.
+    function asciiHeader(obj){
+      return JSON.stringify(obj).replace(/[\u0080-\uffff]/g, function(c){
+        return "\\u" + ("000"+c.charCodeAt(0).toString(16)).slice(-4);
+      });
+    }
+
+    // Downscaled JPEG copy (~1600px) for Daniel's notification email; originals go to Dropbox full-res.
+    function makeThumb(file){
+      return new Promise(function(resolve){
+        try{
+          var img = new Image();
+          var url = URL.createObjectURL(file);
+          img.onload = function(){
+            URL.revokeObjectURL(url);
+            var max = 1600, w = img.width || max, h = img.height || max;
+            if(w > max || h > max){ var s = max/Math.max(w,h); w = Math.round(w*s); h = Math.round(h*s); }
+            var c = document.createElement("canvas"); c.width = w; c.height = h;
+            c.getContext("2d").drawImage(img, 0, 0, w, h);
+            try{ resolve({ name: file.name.replace(/\.(png|heic|heif|webp)$/i, ".jpg"), b64: c.toDataURL("image/jpeg", 0.72).split(",")[1] }); }
+            catch(e){ resolve(null); }
+          };
+          img.onerror = function(){ URL.revokeObjectURL(url); resolve(null); };
+          img.src = url;
+        }catch(e){ resolve(null); }
+      });
+    }
+
+    function uploadOne(f){
+      var path = session.uploadFolder.replace(/\/+$/,"") + "/" + f.name;
+      return fetch("https://content.dropboxapi.com/2/files/upload", {
+        method:"POST",
+        headers:{
+          "Authorization":"Bearer "+session.uploadToken,
+          "Dropbox-API-Path-Root": asciiHeader({".tag":"root","root":session.rootNamespaceId}),
+          "Dropbox-API-Arg": asciiHeader({path:path, mode:"add", autorename:true, mute:true}),
+          "Content-Type":"application/octet-stream"
+        },
+        body: f
+      }).then(function(r){ if(!r.ok) return r.text().then(function(t){ throw new Error("Upload failed for "+f.name+": "+t); }); });
+    }
+
+    function submit(){
+      var btn = document.getElementById("cpu-submit");
+      var timed = document.getElementById("cpu-timed-btn");
+      var libBtn = document.getElementById("cpu-lib-btn");
+      btn.disabled = true;
+      if(timed) timed.disabled = true;
+      if(libBtn) libBtn.disabled = true;
+      var bar = document.getElementById("cpu-bar"); bar.style.display="block";
+      var fill = bar.firstChild;
+      var done = 0, failed = [];
+
+      // Upload sequentially (gentle on phone networks), retry each once.
+      function next(i){
+        if(i >= files.length){ return finish(); }
+        var f = files[i];
+        setStatus("Uploading "+(i+1)+" of "+files.length+"…");
+        uploadOne(f)
+          .catch(function(){ return uploadOne(f); }) // one retry
+          .then(function(){ done++; })
+          .catch(function(){ failed.push(f.name); })
+          .then(function(){ fill.style.width = Math.round(((i+1)/files.length)*100)+"%"; next(i+1); });
+      }
+
+      function finish(){
+        if(done === 0){
+          showError("None of the photos uploaded. Please check your connection and try again.");
+          return;
+        }
+        setStatus("Finishing up…");
+        Promise.all(files.map(makeThumb)).then(function(thumbs){
+          return fetch(WORKER_URL + "/complete", {
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body: JSON.stringify({ c: token, fileCount: done, fileNames: files.map(function(f){return f.name;}), thumbs: thumbs.filter(Boolean) })
+          });
+        }).then(function(){ renderSuccess(done, failed); })
+          .catch(function(){ renderSuccess(done, failed); }); // photos are in; treat as success
+      }
+
+      next(0);
+    }
+
+    function renderSuccess(done, failed){
+      panel.innerHTML =
+        '<div class="cpu-ok">'+
+          '<div class="cpu-check">'+
+            '<svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">'+
+              '<circle cx="27" cy="27" r="26" stroke="#1b2333" stroke-width="1"/>'+
+              '<path d="M17 27.5l7 7 13-14.5" stroke="#1b2333" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>'+
+            '</svg>'+
+          '</div>'+
+          '<h1 class="cpu-h">Thank you.</h1>'+
+          '<p class="cpu-sub" style="margin-bottom:0">Your '+done+' photo'+(done>1?'s are':' is')+' with Daniel. He\'ll be in touch about your piece.</p>'+
+          (failed.length? '<div class="cpu-err" style="margin-top:22px">A few didn\'t send ('+esc(failed.join(", "))+'). You can reopen your link and add them again.</div>' : '')+
+        '</div>';
+    }
+  })();
+  </script>
+</div>
+  </main>
+</body>
+</html>

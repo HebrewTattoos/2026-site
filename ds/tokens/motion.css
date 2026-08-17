@@ -1,0 +1,21 @@
+/* ============================================================
+   MOTION — Hebrew Tattoos
+   Slow, deliberate, ceremonial. Fades and gentle rises.
+   No bounce, no spring. Movement should feel like ink settling.
+   ============================================================ */
+
+:root {
+  --ease-standard: cubic-bezier(0.22, 0.61, 0.36, 1);   /* @kind other */
+  --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);        /* @kind other */
+  --ease-soft:     cubic-bezier(0.4, 0.0, 0.2, 1);       /* @kind other */
+
+  --dur-fast:   160ms;   /* @kind other */
+  --dur-base:   280ms;   /* @kind other */
+  --dur-slow:   560ms;   /* @kind other */
+  --dur-reveal: 900ms;   /* @kind other */
+
+  /* Hover/press conventions (documented in readme VISUAL FOUNDATIONS):
+     - Hover: subtle warm darken or gold underline grow; never scale up.
+     - Press: 1–2px translateY down + slight darken.
+     - Image reveal: opacity 0->1 + 12px rise over --dur-reveal. */
+}

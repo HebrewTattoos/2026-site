@@ -1,0 +1,78 @@
+/* ============================================================
+   COLORS — Hebrew Tattoos
+   Ultramarine ink (sampled from the brand Aleph) on a cool,
+   blue-grey ground. Blue is the core palette.
+   ============================================================ */
+
+:root {
+  /* ---- Base scale: Ink (cool charcoal-indigo) — text & dark UI ---- */
+  --ink-900: #13141e;   /* cool near-black — primary text */
+  --ink-800: #1c1e2b;
+  --ink-700: #282b3c;
+  --ink-600: #3c415a;
+  --ink-500: #5c6178;   /* cool muted body text */
+
+  /* ---- Base scale: Paper (cool off-white / blue-grey) ---- */
+  --paper-000: #ffffff; /* lightest — raised cards */
+  --paper-100: #f8f9fc; /* card surface */
+  --paper-200: #eff1f7; /* page base — cool light */
+  --paper-300: #e3e7f1; /* alt surface */
+  --paper-400: #d2d8e8; /* deeper cool */
+
+  /* ---- Neutrals / lines (cool slate) ---- */
+  --stone-700: #6b7187; /* muted captions */
+  --stone-500: #9097ab;
+  --stone-300: #cbd1e0; /* hairline borders */
+  --stone-200: #e0e4ee;
+
+  /* ---- Accent: Brand blue / ultramarine ink (the core palette) ---- */
+  --blue-900: #0a0a3c;  /* deepest indigo — dark sections / ink pools */
+  --blue-700: #18249a;
+  --blue-600: #2231a0;  /* text-safe deep blue */
+  --blue-500: #2c3eb2;  /* primary brand blue (dominant ribbon) */
+  --blue-400: #4658cc;
+  --blue-300: #8e9cee;  /* light blue / glows */
+  --blue-200: #ccd3f6;  /* lightest tint */
+
+  /* ---- Secondary metallic: Antique gold (optional, sparing) ---- */
+  --gold-600: #8c6a35;
+  --gold-500: #b0894c;
+  --gold-300: #d3b985;
+
+  /* ---- Accent: Oxblood (rare, sacred emphasis) ---- */
+  --oxblood-600: #5c2424;
+  --oxblood-500: #6b2b2b;
+
+  /* ============================================================
+     SEMANTIC ALIASES — reference these in components
+     ============================================================ */
+
+  /* Surfaces */
+  --color-bg:            var(--paper-200);
+  --color-surface:       var(--paper-100);
+  --color-surface-raised:var(--paper-000);
+  --color-surface-alt:   var(--paper-300);
+  --color-surface-ink:   var(--blue-900);  /* deep indigo dark sections */
+
+  /* Text */
+  --text-primary:   var(--ink-900);
+  --text-secondary: var(--ink-500);
+  --text-muted:     var(--stone-700);
+  --text-on-ink:    var(--paper-100);
+  --text-on-ink-muted: #aeb6ce;
+
+  /* Accent (brand blue) */
+  --accent:        var(--blue-500);
+  --accent-strong: var(--blue-600);
+  --accent-soft:   var(--blue-300);
+  --accent-rare:   var(--oxblood-500);
+  --accent-gold:   var(--gold-500);   /* optional secondary metallic */
+
+  /* Lines & borders */
+  --line:        var(--stone-300);
+  --line-strong: var(--stone-500);
+  --line-on-ink: rgba(206, 213, 236, 0.18);
+
+  /* Focus */
+  --focus-ring: rgba(44, 62, 178, 0.45);
+}

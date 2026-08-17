@@ -1,0 +1,30 @@
+/* ============================================================
+   SURFACES — radii, borders, shadows
+   Quiet, paper-like. Minimal rounding; soft warm shadows.
+   ============================================================ */
+
+:root {
+  /* ---- Radius (restrained — paper, not plastic) ---- */
+  --radius-none: 0;
+  --radius-sm:  2px;
+  --radius-md:  4px;
+  --radius-lg:  8px;
+  --radius-pill: 999px;
+
+  /* ---- Border widths ---- */
+  --border-hair: 1px;
+  --border-thin: 1.5px;
+
+  /* ---- Shadows (cool indigo-tinted, low, diffuse) ---- */
+  --shadow-xs: 0 1px 2px rgba(19, 20, 30, 0.06);
+  --shadow-sm: 0 2px 8px rgba(19, 20, 30, 0.08);
+  --shadow-md: 0 10px 30px -12px rgba(19, 20, 40, 0.20);
+  --shadow-lg: 0 26px 60px -20px rgba(13, 14, 40, 0.30);
+
+  /* Inset hairline used on cards over parchment */
+  --ring-hair: inset 0 0 0 1px var(--line);
+
+  /* Accent underline used on links/headings */
+  --rule-accent: var(--accent);
+  --rule-gold: var(--gold-500);  /* optional secondary metallic */
+}

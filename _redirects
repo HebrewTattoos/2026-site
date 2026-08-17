@@ -1,0 +1,130 @@
+# Old Squarespace URLs -> new site (301)
+/blog/the-history-of-hebrew-tattoos-a-podcast /blog/history  301!
+/blog/jonah-but-with-a-twist                  /blog/jonah  301!
+/blog/leff585t8zkqqjqltcspx9antvzyxe          /blog  301!
+/blog/amsterdam-mon-amour                     /blog  301!
+/blog/placement                               /placement  301!
+/blog/at-home                                 /blog  301!
+/blog/deutsch                                 /blog  301!
+/blog/beauty-hebrew-letter                    /shop  301!
+/blog/legibility                              /blog  301!
+/blog/artist                                  /blog/art-or-design  301!
+/blog/uo5wiah80qoiecxyptfkoc07hsb9xm          /blog  301!
+/blog/vci0vkv1wdrplx3go3ehz63pkxkm0p          /blog  301!
+/blog/why-hebrew-letters                      /why-letters  301!
+/blog/identity                                /blog  301!
+/coverup                                      /blog/cover-up-tattoos  301!
+/anarchism-and-the-desert                     /blog/anarchism-and-the-desert  301!
+/tattoos-1                                    /tattoos  301!
+/covid                                        /blog  301!
+/why-kid-calligraphy                          /why-letters  301!
+/deers-and-clearings                          /tattoos  301!
+/how-to-polycam                               /guides  301!
+/how-i-work                                   /guides  301!
+/faq-1                                        /faq  301!
+/nontattoo-art                                /tattoos  301!
+/antisemitism                                 /tattoos  301!
+/abstract-prayer                              /tattoos  301!
+/sartre                                       /tattoos  301!
+/team                                         /the-team  301!
+/an-artist-statement                          /the-team  301!
+/guidelines                                   /guides  301!
+/prophetess-old                               /prophetess  301!
+/rememberold                                  /remember  301!
+/love                                         /shop  301!
+/gabriel-old                                  /the-team/gabriel  301!
+/brave                                        /tattoos  301!
+/forward                                      /tattoos  301!
+/selah                                        /tattoos  301!
+/mosesphillip                                 /tattoos  301!
+/namesforj                                    /tattoos  301!
+/fire                                         /tattoos  301!
+/wings                                        /tattoos  301!
+/brinaleishaold                               /brinaleisha  301!
+/inmyheart                                    /tattoos  301!
+/bestrong-old                                 /bestrong  301!
+/master                                       /tattoos  301!
+/know-old                                     /know  301!
+/lilit-old                                    /tattoos  301!
+/coexistence                                  /tattoos  301!
+/genesis                                      /tattoos  301!
+/gabrielcv                                    /the-team/gabriel  301!
+/davidcv                                      /the-team  301!
+/tamarcv                                      /the-team  301!
+/danielcv                                     /the-team/daniel  301!
+/impressum-1                                  /impressum  301!
+/heart                                        /tattoos  301!
+/mayacv                                       /the-team/maya  301!
+/privacy-policy                               /privacy  301!
+/avi-from-brooklyn                            /tattoos  301!
+/home                                         /  301!
+/annas                                        /tattoos  301!
+/in-the-beginning                             /tattoos  301!
+/shema                                        /tattoos  301!
+/letters-are-soaring                          /tattoos  301!
+/return                                       /tattoos  301!
+/we-remain                                    /tattoos  301!
+/together-and-proud                           /tattoos  301!
+/within-the-circle                            /tattoos  301!
+/here-i-am                                    /tattoos  301!
+/a-place-to-be                                /tattoos  301!
+/shield-and-blessing                          /tattoos  301!
+/home-within                                  /tattoos  301!
+/a-way-out                                    /tattoos  301!
+/the-burning-bush                             /tattoos  301!
+/choosing-life                                /tattoos  301!
+/finding-ourselves-again                      /tattoos  301!
+/pursue-peace                                 /tattoos  301!
+/strength-and-splendor                        /tattoos  301!
+/luftal                                       /tattoos  301!
+/if-not-now-when                              /tattoos  301!
+/finding-my-voice                             /tattoos  301!
+/quiet-strength                               /tattoos  301!
+/guard-your-heart                             /tattoos  301!
+/exhale                                       /tattoos  301!
+/ever-brighter                                /tattoos  301!
+/season-in-the-desert                         /tattoos  301!
+/the-call-of-the-tide                         /tattoos  301!
+/family-at-the-center                         /tattoos  301!
+/line-of-faith                                /tattoos  301!
+/standing-in-the-fire                         /tattoos  301!
+/i-will-not-fall                              /tattoos  301!
+/a-refusal-to-be-silent                       /tattoos  301!
+/what-the-heart-desired                       /tattoos  301!
+/i-will-not-fear                              /tattoos  301!
+/where-everything-begins                      /tattoos  301!
+/into-the-unknown                             /tattoos  301!
+/gathered-from-the-ends-of-heaven             /tattoos  301!
+/reclaiming-the-words                         /tattoos  301!
+/with-an-everlasting-love                     /tattoos  301!
+/rising-through-the-fire                      /tattoos  301!
+/press-1                                      /press  301!
+/divine-feminine                              /tattoos  301!
+/a-shared-soul                                /tattoos  301!
+/brinaleishaold-rebrand                       /brinaleisha  301!
+/gabriel-wolff-rebrand                        /gabriel  301!
+/brinaleishaold-rebrand-1                     /brinaleisha  301!
+
+# Retired Squarespace utility/template pages. These were dropped from a later
+# export; without them the SPA fallback silently serves the homepage instead,
+# which reads as a soft 404.
+# NOTE: /client-upload and /daniel are NOT in this list — they're real,
+# functional pages living at site/client-upload/index.html and
+# site/daniel/index.html, served directly (no redirect needed).
+/horizontal-scoll                             /  301!
+/after-art-survey                             /  301!
+/slideshow-add-single-project-page            /  301!
+/hebrew-tattoos-aesop-html                    /  301!
+
+# Unfinished tattoo pieces, discontinued with no replacement on the new site.
+# 410 (not a 301) is deliberate: these aren't moving anywhere, so redirecting
+# to /tattoos or the homepage would just be a soft-404 with extra steps.
+# Google treats 410 as a clean "permanently gone" signal and drops it from
+# the index faster than a plain 404.
+/an-ever-renewing-fire                        /  410
+/from-the-east-comes-the-sun                  /  410
+/from-thought-to-action                       /  410
+/perfect-peace                                /  410
+
+# SPA fallback: every real route returns 200 with index.html
+/*                                            /index.html  200

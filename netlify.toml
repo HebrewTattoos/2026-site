@@ -1,0 +1,23 @@
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+
+# Deploy previews and branch deploys must never be indexed.
+[context.deploy-preview]
+  [[context.deploy-preview.headers]]
+    for = "/*"
+    [context.deploy-preview.headers.values]
+      X-Robots-Tag = "noindex"
+
+[context.branch-deploy]
+  [[context.branch-deploy.headers]]
+    for = "/*"
+    [context.branch-deploy.headers.values]
+      X-Robots-Tag = "noindex"
+
+# Note: once hebrew-tattoos.com is live, the old *.netlify.app subdomain
+# keeps working too (Netlify doesn't disable it). That's fine left as-is --
+# every page's canonical tag already points at https://www.hebrew-tattoos.com/
+# regardless of which domain actually served it, so Google consolidates the
+# two into one indexed URL instead of treating them as duplicate content.
