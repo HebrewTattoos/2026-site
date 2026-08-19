@@ -25,7 +25,8 @@
 /nontattoo-art                                /tattoos  301!
 /antisemitism                                 /tattoos  301!
 /abstract-prayer                              /tattoos  301!
-/sartre                                       /tattoos  301!
+/sartre                                       /blog/sartre-and-the-occupation  301!
+/client-stories                                /testimonies  301!
 /team                                         /the-team  301!
 /an-artist-statement                          /the-team  301!
 /guidelines                                   /guides  301!
@@ -126,5 +127,5 @@
 /from-thought-to-action                       /  410
 /perfect-peace                                /  410
 
-# SPA fallback: every real route returns 200 with index.html
-/*                                            /index.html  200
+# SPA fallback: unmatched paths get index.html's "not found" UI with an honest 404 status
+/*                                            /index.html  404
