@@ -28,8 +28,22 @@
 ]}
 </script>
 <script src="/support.js"></script>
+<!-- Duplicated from the helmet block below: now that the raw app template
+     is wrapped as inert content (see the inert-template patch), these no
+     longer get the browser's early parser-driven load pass on their own.
+     Keeping a copy here preserves that early-start timing; requests dedupe
+     from cache. Deliberately avoids writing the literal template tag names
+     in this comment -- parseDcText finds template boundaries by searching
+     the raw page text for those exact substrings, and a prose mention here
+     would be matched ahead of the real tag and corrupt the self-refetch. -->
+<link rel="stylesheet" href="/ds/styles.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&amp;display=swap">
+<script src="/image-slot.js"></script>
 </head>
 <body>
+<template id="dc-source">
 <x-dc>
 <helmet>
 <link rel="stylesheet" href="/ds/styles.css">
@@ -71,9 +85,12 @@
     .ht-works-grid { grid-template-columns: repeat(2,1fr) !important; gap: 52px 28px !important; }
     .ht-faq-body { flex-direction: column !important; }
     .ht-piece-gallery { display: grid !important; grid-template-columns: repeat(2,1fr) !important; gap: 16px !important; }
-    .ht-about-snippet { grid-template-columns: 1fr 1.15fr !important; align-items: start !important; gap: 16px !important; }
+    .ht-about-snippet { grid-template-columns: 1fr !important; align-items: start !important; gap: 32px !important; }
     .ht-about-img { order: 1 !important; }
-    .ht-about-text { order: 2 !important; max-width: none !important; }
+    .ht-about-img > div { aspect-ratio: 4/3 !important; }
+    .ht-about-text { order: 2 !important; max-width: none !important; gap: 22px !important; }
+    .ht-about-text > p:first-child { font-size: 30px !important; line-height: 1.24 !important; }
+    .ht-about-text > p + p { font-size: 17px !important; line-height: 1.65 !important; }
     .ht-press-grid { grid-template-columns: repeat(2,1fr) !important; }
     .ht-library-grid { grid-template-columns: repeat(2,1fr) !important; }
     .ht-testi-grid { grid-template-columns: repeat(2,1fr) !important; }
@@ -607,6 +624,45 @@
   </div>
   </sc-if>
 
+  <!-- ============ SELECTED PIECES ============ -->
+  <sc-if value="{{ isSelected }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Selected pieces" style="padding:clamp(88px,10vw,140px) clamp(1.5rem,5vw,5rem) clamp(72px,9vw,112px);">
+    <div style="max-width:var(--container-max);margin:0 auto;">
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px;margin-bottom:80px;">
+        <div style="font-family:var(--font-sans);font-size:12px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--text-muted);">Art</div>
+        <h1 style="font-family:var(--font-display);font-weight:300;font-size:clamp(30px,3.6vw,46px);color:var(--ink-900);margin:0;letter-spacing:-.01em;">Selected pieces</h1>
+        <p style="font-family:var(--font-serif);font-size:18px;line-height:1.7;color:var(--text-secondary);max-width:46ch;margin:0;">Six commissions, each drawn once and worn by one person.</p>
+      </div>
+      <div class="ht-works-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:72px 56px;">
+        <sc-for list="{{ selectedPieces }}" as="p" hint-placeholder-count="6">
+          <div style="display:flex;flex-direction:column;">
+            <div style="position:relative;aspect-ratio:1/1.12;overflow:hidden;background:var(--paper-300);margin-bottom:26px;">
+              <img src="{{ p.img }}" alt="{{ p.alt }}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.8s var(--ease-standard);" style-hover="transform:scale(1.04);">
+              <div style="position:absolute;left:0;bottom:0;max-width:100%;padding:clamp(20px,2.4vw,30px);">
+                <h3 style="font-family:var(--font-display);font-weight:500;font-size:clamp(24px,2.6vw,32px);color:#fff;margin:0 0 10px;white-space:nowrap;">{{ p.title }}</h3>
+                <p style="font-family:var(--font-serif);font-style:italic;font-size:16px;line-height:1.5;color:rgba(255,255,255,0.92);margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ p.desc }}</p>
+              </div>
+            </div>
+            <dl style="margin:0;border-top:1px solid var(--line);">
+              <div style="display:flex;justify-content:space-between;gap:16px;font-family:var(--font-sans);font-size:12.5px;padding:9px 0;border-bottom:1px solid var(--line);">
+                <dt style="color:var(--text-muted);letter-spacing:.04em;">{{ p.m1l }}</dt>
+                <dd style="margin:0;color:var(--text-primary);text-align:right;">{{ p.m1v }}</dd>
+              </div>
+              <div style="display:flex;justify-content:space-between;gap:16px;font-family:var(--font-sans);font-size:12.5px;padding:9px 0;border-bottom:1px solid var(--line);">
+                <dt style="color:var(--text-muted);letter-spacing:.04em;">{{ p.m2l }}</dt>
+                <dd style="margin:0;color:var(--text-primary);text-align:right;">{{ p.m2v }}</dd>
+              </div>
+            </dl>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin-top:84px;display:flex;align-items:center;justify-content:center;">
+        <button onClick="{{ goWork }}" style="background:#fff;border:1px solid #000;border-radius:0;padding:14px 30px;cursor:pointer;font-family:var(--font-sans);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#000;transition:opacity var(--dur-base);" style-hover="opacity:0.6;">See all art →</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
   <!-- ============ CONTACT ============ -->
   <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
   <div data-screen-label="Contact" style="padding:clamp(56px,9vw,128px) clamp(1.5rem,5vw,5rem) clamp(72px,9vw,120px);">
@@ -776,15 +832,37 @@
 
   <!-- ============ NOT FOUND ============ -->
   <sc-if value="{{ isNotFound }}" hint-placeholder-val="{{ false }}">
-  <div data-screen-label="Not found" style="min-height:60vh;display:flex;align-items:center;padding:clamp(48px,7vw,88px) clamp(1.5rem,5vw,5rem) clamp(72px,9vw,112px);">
-    <div style="max-width:640px;margin:0 auto;text-align:center;">
-      <div style="font-family:var(--font-sans);font-size:12px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--text-muted);">404</div>
-      <h1 style="font-family:var(--font-display);font-weight:300;font-size:clamp(38px,5vw,58px);color:var(--ink-900);margin:14px 0 20px;letter-spacing:-.015em;">This page doesn't exist</h1>
-      <p style="font-family:var(--font-serif);font-size:18px;line-height:1.7;color:var(--text-secondary);margin:0 auto clamp(36px,4.5vw,48px);max-width:48ch;">The link may be out of date, or the address was mistyped. Here's where you can go instead.</p>
-      <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
-        <button onClick="{{ goHome }}" style="background:var(--ink-900);border:1px solid var(--ink-900);border-radius:0;padding:14px 30px;cursor:pointer;font-family:var(--font-sans);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;transition:opacity var(--dur-base);" style-hover="opacity:0.75;">Go home</button>
+  <div data-screen-label="Not found" style="min-height:66vh;display:flex;align-items:center;justify-content:center;padding:clamp(80px,10vw,140px) clamp(1.5rem,5vw,5rem);">
+    <div style="max-width:640px;width:100%;display:flex;flex-direction:column;align-items:center;text-align:center;">
+      <div lang="he" dir="rtl" style="font-family:var(--font-display);font-weight:300;font-size:clamp(56px,9vw,120px);line-height:1;color:var(--ink-900);letter-spacing:.02em;transform:scaleX(-1);">לֹא כָּאן</div>
+      <div style="font-family:var(--font-serif);font-style:italic;font-size:17px;line-height:1.6;color:var(--text-secondary);margin-top:22px;max-width:40ch;">Lo kan — "Not here." Yes, it is mirrored. Somebody tattooed this page on the wrong way round.</div>
+      <div style="width:1px;height:56px;background:var(--line-strong);margin:clamp(32px,5vw,48px) 0;"></div>
+      <div style="font-family:var(--font-sans);font-size:12px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--text-muted);">Error 404</div>
+      <h1 style="font-family:var(--font-display);font-weight:300;font-size:clamp(28px,3.4vw,44px);color:var(--ink-900);margin:16px 0 0;letter-spacing:-.01em;">Our one unproofread page</h1>
+      <sc-if value="{{ hasAttemptedPath }}" hint-placeholder-val="{{ false }}">
+        <p style="font-family:var(--font-serif);font-size:18px;line-height:1.75;color:var(--text-secondary);max-width:46ch;margin:18px 0 0;">We check every letter three times before a needle touches skin. <span style="font-family:var(--font-sans);font-size:14px;color:var(--ink-900);">{{ attemptedPath }}</span> is what happens when nobody checks a URL even once.</p>
+      </sc-if>
+      <sc-if value="{{ noAttemptedPath }}" hint-placeholder-val="{{ true }}">
+        <p style="font-family:var(--font-serif);font-size:18px;line-height:1.75;color:var(--text-secondary);max-width:46ch;margin:18px 0 0;">We check every letter three times before a needle touches skin. The address you followed is what happens when nobody checks a URL even once.</p>
+      </sc-if>
+      <dl style="margin:clamp(36px,4vw,48px) 0 0;width:100%;max-width:420px;text-align:left;border-top:1px solid var(--line);">
+        <div style="display:flex;justify-content:space-between;gap:16px;font-family:var(--font-sans);font-size:12.5px;padding:9px 0;border-bottom:1px solid var(--line);">
+          <dt style="color:var(--text-muted);letter-spacing:.04em;">Spelling</dt>
+          <dd style="margin:0;color:var(--text-primary);text-align:right;">Verified twice</dd>
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:16px;font-family:var(--font-sans);font-size:12.5px;padding:9px 0;border-bottom:1px solid var(--line);">
+          <dt style="color:var(--text-muted);letter-spacing:.04em;">Direction</dt>
+          <dd style="margin:0;color:var(--text-primary);text-align:right;">Regrettably left to right</dd>
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:16px;font-family:var(--font-sans);font-size:12.5px;padding:9px 0;border-bottom:1px solid var(--line);">
+          <dt style="color:var(--text-muted);letter-spacing:.04em;">Removal</dt>
+          <dd style="margin:0;color:var(--text-primary);text-align:right;">One click, no laser</dd>
+        </div>
+      </dl>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:clamp(36px,4vw,52px);">
+        <button onClick="{{ goHome }}" style="background:var(--ink-900);border:1px solid var(--ink-900);border-radius:0;padding:14px 30px;cursor:pointer;font-family:var(--font-sans);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;transition:opacity var(--dur-base);" style-hover="opacity:0.75;">Undo this tattoo</button>
         <button onClick="{{ goWork }}" style="background:#fff;border:1px solid #000;border-radius:0;padding:14px 30px;cursor:pointer;font-family:var(--font-sans);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#000;transition:opacity var(--dur-base);" style-hover="opacity:0.6;">See the work</button>
-        <button onClick="{{ goContact }}" style="background:#fff;border:1px solid #000;border-radius:0;padding:14px 30px;cursor:pointer;font-family:var(--font-sans);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#000;transition:opacity var(--dur-base);" style-hover="opacity:0.6;">Contact us</button>
+        <button onClick="{{ goContact }}" style="background:#fff;border:1px solid #000;border-radius:0;padding:14px 30px;cursor:pointer;font-family:var(--font-sans);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#000;transition:opacity var(--dur-base);" style-hover="opacity:0.6;">Write to us</button>
       </div>
     </div>
   </div>
@@ -2077,6 +2155,8 @@
       <dc-import name="SocialLinks" tone="light" hint-size="160px,40px"></dc-import>
       <span style="font-family:var(--font-sans);font-size:11.5px;letter-spacing:.04em;color:var(--text-muted);">© 2026 · Every piece one-of-one</span>
       <button onClick="{{ goWhyLetters }}" style="font-family:var(--font-sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);background:none;border:none;cursor:pointer;padding:0;transition:color var(--dur-base);" style-hover="color:var(--ink-900);">Why Hebrew letters</button>
+      <button onClick="{{ goTryout }}" style="font-family:var(--font-sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);background:none;border:none;cursor:pointer;padding:0;transition:color var(--dur-base);" style-hover="color:var(--ink-900);">Edited images tryout</button>
+      <button onClick="{{ goSelected }}" style="font-family:var(--font-sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);background:none;border:none;cursor:pointer;padding:0;transition:color var(--dur-base);" style-hover="color:var(--ink-900);">Selected pieces</button>
       <button onClick="{{ goPrivacy }}" style="font-family:var(--font-sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);background:none;border:none;cursor:pointer;padding:0;transition:color var(--dur-base);" style-hover="color:var(--ink-900);">Privacy Policy</button>
       <button onClick="{{ goImpressum }}" style="font-family:var(--font-sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);background:none;border:none;cursor:pointer;padding:0;" style-hover="color:var(--ink-900);">Impressum</button>
     </div>
@@ -2085,6 +2165,7 @@
 </div>
 
 <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#0a0a3c"></rect><text x="100" y="132" font-family="Georgia, serif" font-size="96" fill="#faf9f5" text-anchor="middle">א</text></svg></template></x-dc>
+</template>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   journeyRailRef = React.createRef();
@@ -2193,9 +2274,9 @@ class Component extends DCLogic {
     [0, 40, 120, 260].forEach((d) => setTimeout(jump, d));
   };
 
-  VALID_ROUTES = ['home','work','commission','contact','tryout','newsletter','team','faq','blog','press','piece','post','member','shop','testimonies','materials','care','tattooists','tattooist','maaser','studiovisit','innercircle','placement','guides','impressum','privacy','whyletters','about','sitemap'];
+  VALID_ROUTES = ['home','work','commission','contact','tryout','newsletter','team','faq','blog','press','piece','post','member','shop','testimonies','materials','care','tattooists','tattooist','maaser','studiovisit','innercircle','placement','guides','impressum','privacy','whyletters','about','sitemap','selected'];
 
-  ROUTE_TO_PATH = { home: '/', work: '/tattoos', commission: '/commission', contact: '/contact', tryout: '/tryout', newsletter: '/newsletter', team: '/the-team', faq: '/faq', blog: '/blog', press: '/press', shop: '/shop', testimonies: '/testimonies', materials: '/materials', care: '/aftercare', tattooists: '/tattooists', maaser: '/maaser', studiovisit: '/studio-visit', innercircle: '/inner-circle', placement: '/placement', guides: '/guides', impressum: '/impressum', privacy: '/privacy', whyletters: '/why-letters', about: '/about', sitemap: '/sitemap' };
+  ROUTE_TO_PATH = { home: '/', work: '/tattoos', commission: '/commission', contact: '/contact', tryout: '/tryout', newsletter: '/newsletter', team: '/the-team', faq: '/faq', blog: '/blog', press: '/press', shop: '/shop', testimonies: '/testimonies', materials: '/materials', care: '/aftercare', tattooists: '/tattooists', maaser: '/maaser', studiovisit: '/studio-visit', innercircle: '/inner-circle', placement: '/placement', guides: '/guides', impressum: '/impressum', privacy: '/privacy', whyletters: '/why-letters', about: '/about', sitemap: '/sitemap', selected: '/selected' };
 
   urlFor = (route, slug) => {
     if (route === 'piece') return '/' + slug;
@@ -2262,6 +2343,7 @@ class Component extends DCLogic {
     whyletters: ['Why Hebrew letters — Hebrew Tattoos', 'On the Hebrew alphabet, and why these letters carry what they carry.'],
     about: ['About — Hebrew Tattoos', 'The studio, the work, and how it came to be.'],
     sitemap: ['Sitemap — Hebrew Tattoos', 'Every page on this site.'],
+    selected: ['Selected pieces — Hebrew Tattoos', 'Six commissions, each one drawn once and worn by one person.'],
     notfound: ['Page not found — Hebrew Tattoos', 'That page does not exist. It may have moved, or the link may be out of date.'],
   };
 
@@ -2295,6 +2377,10 @@ class Component extends DCLogic {
       this.setTag('meta[property="og:url"]', 'content', url);
       this.setTag('meta[name="twitter:title"]', 'content', title);
       this.setTag('meta[name="twitter:description"]', 'content', desc);
+      // A mistyped URL is a real 404 (see _redirects' SPA fallback), but the
+      // body still renders this same document — tell crawlers not to index
+      // the mistyped address itself, distinct from the actual 404 status.
+      this.setTag('meta[name="robots"]', 'content', route === 'notfound' ? 'noindex' : 'index, follow');
     } catch (e) {}
   };
 
@@ -3033,6 +3119,11 @@ class Component extends DCLogic {
     const filtered = works.concat(newsletterWorks);
     const newsletterFiltered = newsletterWorks;
     const tryoutFiltered = (store.tryoutWorks || []).map((w) => ({ ...w, alt: 'Edited photograph, ' + w.title, artistIsLink: false, artistPlain: true }));
+    const SELECTED_SLUGS = ['t-mourning', 't-crimson', 't-zion', 't-brave', 't-silence', 't-wholeheart'];
+    const selectedPieces = SELECTED_SLUGS
+      .map((s) => (store.tryoutWorks || []).find((w) => w.slug === s))
+      .filter(Boolean)
+      .map((w) => ({ ...w, alt: w.title + ', Hebrew lettering', m1l: 'Text', m1v: w.hebrew, m2l: 'Tattooist', m2v: w.artist }));
 
     const processArc = [
       { n: '01', label: 'First contact' },
@@ -3231,13 +3322,29 @@ class Component extends DCLogic {
       (route === 'member' && !!this.state.activeMember && !foundMember) ||
       (route === 'tattooist' && !!this.state.activeTattooist && !foundTattooist)
     );
+    // syncMeta runs synchronously on navigation, before the store has loaded,
+    // so a mistyped slug (route stays 'piece'/'post'/etc. until detailNotFound
+    // resolves once data is in) can't be marked noindex at that point. This
+    // corrects the robots tag reactively once detailNotFound is known, same
+    // pattern as the other post-load corrections in this render method.
+    try { this.setTag('meta[name="robots"]', 'content', (route === 'notfound' || detailNotFound) ? 'noindex' : 'index, follow'); } catch (e) {}
+    // Only show the attempted URL when it reads like a real site route.
+    const attemptedPath = (() => {
+      try {
+        const p = window.location.pathname || '';
+        if (!p || p.length > 48 || /\.[a-z0-9]+$/i.test(p)) return '';
+        return decodeURIComponent(p);
+      } catch (e) { return ''; }
+    })();
 
     return {
       isHome: route === 'home', isWork: route === 'work', isCommission: route === 'commission', isContact: route === 'contact',      goHome: () => this.go('home'), goWork: () => this.go('work'), goCommission: () => this.go('commission'), goContact: () => this.go('contact'),
       isTryout: route === 'tryout', goTryout: () => this.go('tryout'), tryoutFiltered,
+      isSelected: route === 'selected', goSelected: () => this.go('selected'), selectedPieces,
       isTeam: route === 'team', isFaq: route === 'faq', isBlog: route === 'blog', isPress: route === 'press',
       isPiece: route === 'piece' && !detailNotFound, isPost: route === 'post' && !detailNotFound, isMember: route === 'member' && !detailNotFound, isShop: route === 'shop',
       isNotFound: route === 'notfound' || detailNotFound,
+      hasAttemptedPath: !!attemptedPath, noAttemptedPath: !attemptedPath, attemptedPath,
       isTestimonies: route === 'testimonies', isMaterials: route === 'materials', isCare: route === 'care', isTattooists: route === 'tattooists', isTattooist: route === 'tattooist' && !detailNotFound,
       isMaaser: route === 'maaser', goMaaser: () => this.go('maaser'),
       isStudioVisit: route === 'studiovisit', goStudioVisit: () => this.go('studiovisit'),

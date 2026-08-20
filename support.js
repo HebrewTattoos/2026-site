@@ -22,7 +22,8 @@
 
   // src/parse.ts
   function parseDcDocument(doc) {
-    const dc = doc.querySelector("x-dc");
+    const tpl = doc.querySelector("template#dc-source");
+    const dc = tpl ? tpl.content.querySelector("x-dc") : doc.querySelector("x-dc");
     if (!dc) return null;
     const scriptEl = doc.querySelector("script[data-dc-script]");
     const { props, preview } = parseDataProps(
@@ -162,10 +163,11 @@
       }).catch(() => {
       });
     }
-    const dc = doc.querySelector("x-dc");
+    const tpl = doc.querySelector("template#dc-source");
     const hostEl = doc.createElement("div");
     hostEl.id = "dc-root";
-    dc.replaceWith(hostEl);
+    if (tpl) tpl.replaceWith(hostEl);
+    else doc.querySelector("x-dc")?.replaceWith(hostEl);
     if (!parsed.preview) {
       const s = doc.createElement("style");
       s.textContent = FULL_PAGE_CSS;
@@ -1674,7 +1676,7 @@
   // src/index.ts
   function hideRawTemplate() {
     const s = document.createElement("style");
-    s.textContent = "x-dc{display:none!important}";
+    s.textContent = "x-dc,template[id=\"dc-source\"]{display:none!important}";
     document.head.appendChild(s);
   }
   function loadScript(src, integrity) {
