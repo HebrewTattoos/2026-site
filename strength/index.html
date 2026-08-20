@@ -96,7 +96,13 @@
     .ht-journey-text h3 { font-size: 24px !important; max-width: none !important; }
     .ht-journey-text p { font-size: 16px !important; max-width: none !important; }
     .ht-journey-image { min-width: 0 !important; }
-    .ht-journey-image > div { width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; }
+    /* Desktop pulls each row's image up (imgOverlapTop, inline style) to stagger
+       it against the row above — safe there because the wider desktop type
+       scale gives each row enough height to absorb it. The mobile font-size
+       overrides above shrink that height, so the same fixed pull-up now
+       reaches into the previous row's column and overlaps its text. Cancel it
+       on mobile; the stagger is a desktop-only flourish, not load-bearing. */
+    .ht-journey-image > div { width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; margin-top: 0 !important; }
     .ht-journey-layout { grid-template-columns: 1fr !important; }
     .ht-journey-heading { position: static !important; margin-bottom: 32px !important; }
   }

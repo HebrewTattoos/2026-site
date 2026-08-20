@@ -409,6 +409,15 @@
       this._ro.observe(this);
       load();
       this._render();
+      // The host framework can connect this element before its full attribute
+      // set (notably `src`) has landed, so this first _render() sometimes
+      // runs against a still-empty src and settles into the "empty" state
+      // (dashed ring showing) even though the image is filled moments later —
+      // nothing re-renders afterward to correct it since `src`'s own value
+      // never actually changes again. One more pass next frame, once
+      // attributes have settled, self-heals that without changing anything
+      // for the already-correct case (_render() is idempotent).
+      requestAnimationFrame(() => { if (this.isConnected) this._render(); });
     }
 
     disconnectedCallback() {
