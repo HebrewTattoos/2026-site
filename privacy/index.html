@@ -3,6 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Warms the DNS+TLS connection for Google Fonts ahead of the actual
+     <link rel="stylesheet"> requests further down (duplicated into the
+     inert template further below, same reasoning as the vendor/React
+     preloads) — shaves a round-trip off render-blocking font CSS. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>Privacy policy — Hebrew Tattoos</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="/assets/icons/favicon-96.png" sizes="96x96">
