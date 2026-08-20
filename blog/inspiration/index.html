@@ -66,24 +66,43 @@
      contains it has itself been fetched and parsed -- a fully sequential
      chain (index.html -> ds/styles.css -> tokens/fonts.css -> Google
      Fonts), unlike a <link> which the parser can fetch in parallel with
-     everything else. Linking it directly here removes that chain and gets
-     Cormorant Garamond/EB Garamond (used by --font-display, incl. the
-     hero h1) resolved sooner, which shrinks the font-swap reflow that was
-     showing up as CLS on the hero section. -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Hanken+Grotesk:wght@400;500;600&amp;family=Frank+Ruhl+Libre:wght@300;400;500;700&amp;display=swap">
+     everything else. Linking it directly here gets Cormorant Garamond/EB
+     Garamond (used by --font-display, incl. the hero h1) resolved sooner,
+     which shrinks the font-swap reflow that was showing up as CLS on the
+     hero section.
+
+     Loaded via preload+swap-to-stylesheet rather than a plain <link
+     rel="stylesheet">: the parser still fetches it immediately and in
+     parallel (same CLS benefit as a direct link), but it no longer blocks
+     first paint -- a real <link rel="stylesheet"> here was Lighthouse's
+     single largest render-blocking cost on the page (~780ms), since these
+     four font families together are a bigger response than the other
+     Google Fonts links. Applied to all three Google Fonts links for the
+     same reason. -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Hanken+Grotesk:wght@400;500;600&amp;family=Frank+Ruhl+Libre:wght@300;400;500;700&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="stylesheet" href="/ds/styles.css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Hanken+Grotesk:wght@400;500;600&amp;family=Frank+Ruhl+Libre:wght@300;400;500;700&amp;display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&amp;display=swap">
+</noscript>
 <script src="/image-slot.js"></script>
 </head>
 <body>
 <template id="dc-source">
 <x-dc>
 <helmet>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Hanken+Grotesk:wght@400;500;600&amp;family=Frank+Ruhl+Libre:wght@300;400;500;700&amp;display=swap">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Hanken+Grotesk:wght@400;500;600&amp;family=Frank+Ruhl+Libre:wght@300;400;500;700&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="stylesheet" href="/ds/styles.css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Hanken+Grotesk:wght@400;500;600&amp;family=Frank+Ruhl+Libre:wght@300;400;500;700&amp;display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&amp;display=swap">
+</noscript>
 <script src="/image-slot.js"></script>
 <style>
   :root { --color-bg: #fff; --color-surface: #fff; --color-surface-alt: #fff; --color-surface-raised: #fff; --radius-none: 0; --radius-sm: 0; --radius-md: 0; --radius-lg: 0; --radius-pill: 0; }
