@@ -27,6 +27,25 @@
 {"@type":"WebSite","@id":"https://www.hebrew-tattoos.com/#site","url":"https://www.hebrew-tattoos.com/","name":"Hebrew Tattoos","publisher":{"@id":"https://www.hebrew-tattoos.com/#org"}},{"@type":"BlogPosting","@id":"https://www.hebrew-tattoos.com/blog/its-not-all-about-trauma#article","headline":"It\u2019s not all about trauma","description":"Identity as something lived and carried in the body rather than formed only through thought or ideology.","image":"https://images.squarespace-cdn.com/content/v1/66f3b7bb5e17866c784e02e7/1775804467854-L6VYA5RSOVFIBWHAUNWM/Screenshot+2026-04-10+at+09.00.31.png","url":"https://www.hebrew-tattoos.com/blog/its-not-all-about-trauma","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.hebrew-tattoos.com/blog/its-not-all-about-trauma"},"author":{"@id":"https://www.hebrew-tattoos.com/#org"},"publisher":{"@id":"https://www.hebrew-tattoos.com/#org"},"isPartOf":{"@id":"https://www.hebrew-tattoos.com/#site"}}
 ]}
 </script>
+<!-- Self-hosted so booting the app doesn't depend on a third-party CDN
+     round-trip before anything can paint — Search Console flagged every
+     page's mobile LCP as "needs improvement" (>2.5s), and support.js's own
+     loadReactUmd() fetched these two files from unpkg.com on every fresh
+     load with nothing rendering until that finished. cdnScriptFor() (in
+     support.js) already checks window.__resources for a substitute URL
+     before falling back to the CDN one, so this doesn't require patching
+     the compiled runtime itself — just needs to run before support.js's own
+     script executes. Files are byte-identical to the pinned SRI hashes
+     support.js already carries for the CDN originals (react@18.3.1/
+     react-dom@18.3.1 production UMD) — verified via sha384 before adding. -->
+<link rel="preload" href="/vendor/react.production.min.js" as="script">
+<link rel="preload" href="/vendor/react-dom.production.min.js" as="script">
+<script>
+  window.__resources = {
+    "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "/vendor/react.production.min.js",
+    "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "/vendor/react-dom.production.min.js"
+  };
+</script>
 <script src="/support.js"></script>
 <!-- Duplicated from the helmet block below: now that the raw app template
      is wrapped as inert content (see the inert-template patch), these no
